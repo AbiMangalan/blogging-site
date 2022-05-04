@@ -66,7 +66,7 @@ const getBlogs = async function (req, res)
         if(req.query.tags!=undefined)
         {
             let tags=JSON.parse(req.query.tags)
-                filter['tags']={$in : tags};
+            filter['tags']={$in : tags};
         }
         if (req.query.subcategory!=undefined)
         {
@@ -107,10 +107,13 @@ const updateBlog = async function(req,res)
             return res.status(400).send({ status: false, message: 'Invalid request body. Please provide blog details to be updated.' });
         
         let blog = await blogModel.findOne({ _id : req.params.blogId, isDeleted : false });
-        if(!blog.isPublished)
+        if(blog!=null)
         {
-            data['isPublished']=true;
-            data['publishedAt']=new Date();
+            if(!blog.isPublished)
+            {
+                data['isPublished']=true;
+                data['publishedAt']=new Date();
+            }
         }
         let arrData={};
         if(data.tags!=undefined)
@@ -130,7 +133,7 @@ const updateBlog = async function(req,res)
         }
         if(blog!=null)
         {
-            res.status(200).send({status : true,data : blog});
+            res.status(200).send({status : true,message: 'New blog created successfully.',data : blog});
         }
         else
         {

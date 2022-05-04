@@ -85,7 +85,7 @@ const loginAuthor = async function (req, res)
         let payload = { authorId : author._id };
         let token = jwt.sign(payload, 'projectOne');
         res.header('x-api-key', token);
-        res.status(201).send({ status: true, msg: "Login Successfull!", token: token});
+        res.status(201).send({ status : true, msg : "Login Successfull!", data : {token : token}});
     } 
     catch (error) 
     {

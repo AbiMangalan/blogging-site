@@ -14,9 +14,9 @@ const isValidRequestBody = function (requestBody)
    return Object.keys(requestBody).length > 0;
 };
 
-const isValidObjectId = function (authorId)
+const isValidObjectId = function (ObjectId)
 {
-    if (!mongoose.Types.ObjectId.isValid(authorId))return false
+    if (!mongoose.Types.ObjectId.isValid(ObjectId))return false
     
     return true;
 };
@@ -30,4 +30,5 @@ const isValidEmail = function(email)
 {
     return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
 };
+
 module.exports={isValidField,isValidRequestBody,isValidObjectId,isValidEmail,isValidTitle};
